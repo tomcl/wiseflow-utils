@@ -10,9 +10,9 @@ To run this analysis on any system (Windows/Macos/Linux)
 
 Pearson Discriminant (PD) values lie between -1 and 1. Interpret the results for each question as follows:
 
-* < 0 => probably a wrong answer or impossible question
-* < 0.1 => Unusually low - worth reviewing for errors
-* > 0.1 => Ok
-* > 0.3 => Fine
+* PD < 0 => probably a wrong answer or impossible question
+* PD < 0.1 => Unusually low - worth reviewing for errors
+* PD > 0.1 => Ok
+* PD > 0.3 => Fine
 
 
