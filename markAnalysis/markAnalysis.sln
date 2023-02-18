@@ -3,7 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "markAnalysis", "markAnalysis.fsproj", "{015B5A7B-A0C8-4BC7-9740-4B1351363B9C}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "markAnalysis", "markAnalysis.fsproj", "{015B5A7B-A0C8-4BC7-9740-4B1351363B9C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{944166D6-B5D0-4E7F-AF80-3FD425392759}"
+	ProjectSection(SolutionItems) = preProject
+		..\README.md = ..\README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
