@@ -44,6 +44,15 @@ let qMarks i =
     markMatrix
     |> List.map (List.item i)
 
+let qMarkBins i =
+    List.groupBy id (qMarks i)
+    |> List.map (fun (bin, cases ) -> bin, List.length cases)
+    |> List.sortDescending
+    |> (function | bins when bins.Length = 2 -> [] | bins -> bins)
+
+let displayBin (bin,num) =
+    $"%.2f{bin}->%-3d{num}"
+let qIndexes = [0..List.length markHeaders - 1]
 
 /// list of each student's mark total
 let testMarks =
@@ -67,9 +76,11 @@ let average i = List.average (qMarks i)
 /// print stats about question marks
 let analyse() =
     printfn $"Average test score (%%) = %.2f{testAverage*100.}"
-    printfn "        PD     Av   Max"
+    printfn "        PD     Av   Max   Histogram"
     markHeaders
     |> List.iteri (fun i h ->
-        printfn $"Q%-5s{h} %.2f{discriminate i} %5.2f{average i} %5.2f{maxMark i}")
+        let sep = "  "
+        printfn $"Q%-5s{h} %.2f{discriminate i} %5.2f{average i} %5.2f{maxMark i}   \
+        %s{List.map displayBin (qMarkBins i) |> String.concat sep}")
 
 analyse()
