@@ -26,6 +26,9 @@ let markHeaders =
     headers
     |> List.filter (fun h -> h.Contains(":"))   
 
+/// Matrix of question marks.
+/// Each element is a list of the individual question marks for one student
+/// In the same order as found in markHeaders
 let markMatrix =
     marks
     |> List.mapi ( fun i row ->
@@ -34,27 +37,39 @@ let markMatrix =
         |> (fun row -> if List.forall Option.isSome row then [ List.map Option.get row] else []))
     |> List.concat
 
-
-
 let getRow i = markMatrix[i]
 
+/// List of all the marks awarded for question i
 let qMarks i = 
     markMatrix
     |> List.map (List.item i)
 
 
-
+/// list of each student's mark total
 let testMarks =
     markMatrix
     |> List.map List.sum
 
-
-
+/// PD of ith question
 let discriminate i = Correlation.Seq.pearson testMarks (qMarks i)
+let maxMark i = List.max (qMarks i)
 
+/// maximum mark awarded for ith question (should be 1 normally)
+let maxMarks = 
+    [0..markMatrix[0].Length-1] |> List.map (fun i -> maxMark i)
+
+/// average mark for test over all students
+let testAverage = (List.average testMarks / float (List.length maxMarks))
+
+/// average mark for ith question over all students
+let average i = List.average (qMarks i)
+
+/// print stats about question marks
 let analyse() =
+    printfn $"Average test score (%%) = %.2f{testAverage*100.}"
+    printfn "        PD     Av   Max"
     markHeaders
-    |> List.mapi (fun i h ->
-        printfn $"Q%-5s{h} %.2f{discriminate i}")
+    |> List.iteri (fun i h ->
+        printfn $"Q%-5s{h} %.2f{discriminate i} %5.2f{average i} %5.2f{maxMark i}")
 
 analyse()
